@@ -47,10 +47,10 @@ class Product(models.Model):
     name=models.CharField(max_length=50,unique=True,blank=False)
     productType=models.ForeignKey(ProductType,on_delete=models.PROTECT)
     price=models.FloatField()
-    image=models.ImageField(upload_to='media/images/products', default='media/images/None/no-image.png',blank=True, null=True)
+    image=models.ImageField(upload_to='images/', null=True, verbose_name="")
 
     def __str__(self):
-        return '%s %s %s ' % (self.name,self.productType,self.price,self.image)
+        return '%s %s %s %s ' % (self.name,self.productType,self.price,self.image)
 
     class Meta:
         ordering=['name']
@@ -95,7 +95,7 @@ class Transaction(models.Model):
     dateOfTransaction=models.DateTimeField()
 
     def __str__(self):
-        return '%s %s %s %s'%(self.customerId,self.productId,self.dateOfTransaction)
+        return '%s %s %s '%(self.customerId,self.productId,self.dateOfTransaction)
 
     class Meta:
         ordering=['-dateOfTransaction']
