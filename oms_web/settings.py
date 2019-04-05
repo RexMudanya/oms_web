@@ -120,3 +120,12 @@ MEDIA_URL='/media/'
 STATIC_ROOT=os.path.join(os.path.dirname(BASE_DIR),'static','static-only')
 MEDIA_ROOT=os.path.join(os.path.dirname(BASE_DIR),'static','media')
 STATICFILES_DIRS=(os.path.join(os.path.dirname(BASE_DIR),'static','static'),)
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':('rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        ),
+}
