@@ -1,8 +1,30 @@
 from django.db.models import Q
 from rest_framework import generics, mixins
-from omsApp.models import Product
-from .serializers import ProductSerializer
+from omsApp.models import Product, ProductType
+from .serializers import ProductSerializer, ProductTypeSerializer
 from .permissions import IsOwnerOrReadOnly
+
+
+class ProductTypeRudView(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    serializer_class = ProductTypeSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        return ProductType.objects.all()
+
+
+class ProductTypeAPIView(mixins.CreateModelMixin, generics.ListAPIView):
+    lookup_field = 'id'
+    serializer_class = ProductTypeSerializer
+    queryset = ProductType.objects.all()
+
+    def get_queryset(self):
+        qs = ProductType.objects.all()
+        query = self.request.GET.get("q")
+        if query is not None:
+            qs = qs.filter(Q(type__icontains=query) | Q(description__icontains=query)).distinct()
+        return qs
 
 
 class ProductsAPIView(mixins.CreateModelMixin, generics.ListAPIView):
