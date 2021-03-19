@@ -1,7 +1,7 @@
 Django==1.11.29
 django-crispy-forms==1.6.0
 jellyfish==0.5.4
-pillow==7.1.0
+pillow==8.1.1
 psycopg2
 reportlab==3.3.0
 djangorestframework==3.3.3
